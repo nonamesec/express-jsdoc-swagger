@@ -25,14 +25,19 @@ const expressJSDocSwagger = app => (options = {}, userSwagger = {}) => {
     .catch(events.error);
 
   if (options.exposeSwaggerUI || DEFAULT_EXPOSE_SWAGGERUI) {
-    app.use(options.swaggerUIPath || DEFAULT_SWAGGERUI_URL, (req, res, next) => {
-      swaggerObject = {
-        ...swaggerObject,
-        host: req.get('host'),
-      };
-      req.swaggerDoc = swaggerObject;
-      next();
-    }, swaggerUi.serve, swaggerUi.setup());
+    app.use(
+      options.swaggerUIPath || DEFAULT_SWAGGERUI_URL,
+      (req, res, next) => {
+        swaggerObject = {
+          ...swaggerObject,
+          host: req.get('host'),
+        };
+        req.swaggerDoc = swaggerObject;
+        next();
+      },
+      swaggerUi.serve,
+      swaggerUi.setup(undefined, options.swaggerUiOptions),
+    );
   }
 
   if (options.exposeApiDocs || DEFAULT_EXPOSE_APIDOCS) {

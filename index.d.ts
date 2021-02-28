@@ -6,6 +6,7 @@
 
 import { EventEmitter } from 'events';
 import express from 'express';
+import { SwaggerUiOptions } from 'swagger-ui-express';
 
 interface ContactObject {
   name: string;
@@ -53,6 +54,7 @@ interface Options {
   swaggerUIPath?: string;
   exposeApiDocs?: boolean;
   apiDocsPath?: string;
+  swaggerUiOptions: SwaggerUiOptions;
 }
 
 type UserSwagger = Record<string, unknown>;
